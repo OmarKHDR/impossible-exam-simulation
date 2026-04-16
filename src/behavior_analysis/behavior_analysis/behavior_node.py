@@ -47,7 +47,7 @@ class BehaviorAnalysisNode(Node):
         if self.last_object:
             violations.append("Prohibited Object")
             
-        if self.last_depth < 0.5: 
+        if self.last_depth < self.attention_threshold: 
             violations.append("Suspicious Distance")
 
         if violations:

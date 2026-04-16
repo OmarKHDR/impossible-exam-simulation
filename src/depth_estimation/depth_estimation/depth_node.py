@@ -10,6 +10,7 @@ class DepthEstimationNode(Node):
         super().__init__('depth_node')
         
         self.declare_parameter('depth_threshold', 1.5)
+        self.depth_threshold = self.get_parameter('depth_threshold').value
         
         self.subscription = self.create_subscription(
             Image, 
@@ -20,7 +21,7 @@ class DepthEstimationNode(Node):
         self.publisher_ = self.create_publisher(Float32, '/depth_data', 10)
         
         self.br = CvBridge()
-        self.get_logger().info('Depth Estimation Node has started')
+        self.get_logger().info(f'Depth Estimation Node has started | depth_threshold: {self.depth_threshold}')
 
     def listener_callback(self, data):
         try:
@@ -34,6 +35,9 @@ class DepthEstimationNode(Node):
             msg = Float32()
             msg.data = float(estimated_distance)
             self.publisher_.publish(msg)
+            
+            if msg.data < self.depth_threshold:
+                self.get_logger().warn(f'Object distance {msg.data:.2f} is below threshold {self.depth_threshold:.2f}')
             
         except Exception as e:
             self.get_logger().error(f'Failed to process image: {str(e)}')
