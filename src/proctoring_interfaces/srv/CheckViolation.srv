@@ -1,0 +1,4 @@
+string behavior_state
+---
+bool is_violation
+string violation_details
