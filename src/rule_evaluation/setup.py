@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'rule_evaluation_node = rule_evaluation.rule_evaluation_node:main'
+            'rule_evaluation_node = rule_evaluation.rule_evaluation_node:main',
+            'mock_behavior_node = rule_evaluation.mock_behavior_node:main'
         ],
     },
 )
