@@ -1,0 +1,10 @@
+install/
+build/
+log/
+__pycache__/
+.venv/
+.env
+.vscode/
+.idea/
+*.pyc
+WIN*
